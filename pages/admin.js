@@ -1,9 +1,11 @@
 import Nav from "../components/Nav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import { useRouter } from 'next/router';
 
 export default function Admin() {
+
+    const router = useRouter()
 
     const [model, setModel] = useState("");
     const [price, setPrice] = useState(0);
@@ -12,9 +14,7 @@ export default function Admin() {
     const addListing = (e) => {
         e.preventDefault();
 
-        const router = useRouter()
-
-        Axios.post("https://bd83-223-31-218-223.ngrok-free.app/cars/add", {
+        Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/cars/add", {
             model,
             bookings: [],
             pricePerDay: price,
@@ -28,11 +28,17 @@ export default function Admin() {
             setModel("");
             setPrice(0);
             router.push("/")
-            alert(res.data.model + "successfully added!")
+            alert(res.data.model + " successfully added!")
         }).catch((err) => {
             console.log(err);
         })
     }
+
+    useEffect(() => {
+        if(localStorage.getItem('email') == null) {
+            router.push("/");
+        }
+    }, [])
 
     return(
         <div>

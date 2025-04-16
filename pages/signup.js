@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import { useRouter } from 'next/router';
+import Nav from "../components/Nav";
+import Link from 'next/link';
 
 export default function Signup() {
 
@@ -24,7 +26,7 @@ export default function Signup() {
         if(phone.length != 10) {
 
         } else {
-            Axios.post("https://bd83-223-31-218-223.ngrok-free.app/users/register", {
+            Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/users/register", {
                 name,
                 email,
                 phone,
@@ -35,9 +37,14 @@ export default function Signup() {
                     'ngrok-skip-browser-warning': 'sandesh'
                 }
             }).then((res) => {
-                localStorage.setItem('name', res.data.name);
-                localStorage.setItem('email', res.data.email);
-                localStorage.setItem('id', res.data.id);
+                if(res.data.message == "success") {
+                    localStorage.setItem('name', res.data.user.name);
+                    localStorage.setItem('email', res.data.user.email);
+                    localStorage.setItem('id', res.data.user.id);
+                    localStorage.setItem('role', res.data.user.role);
+                } else {
+                    alert("User already exists.")
+                }
             }).then(() => {
                 router.push('/');
             }).catch((err) => {
@@ -48,17 +55,24 @@ export default function Signup() {
         
     }
 
-    return(
-        <div className="flex flex-col w-full h-full justify-center items-center">
+    useEffect(() => {
+        if(localStorage.getItem('email') != null) {
+            router.push("/");
+        }
+    }, [])
 
+    return(
+        <div className="flex flex-col w-full h-screen justify-center items-center">
+            <Nav />
             <form onSubmit={signUser} className="flex flex-col w-[600px] gap-7 items-center">
-                <span className="mt-7">Signup</span>
+                <span className="text-lg font-semibold">Signup</span>
                 <input onChange={(e) => setName(e.target.value)} className="pl-[10px] pr-[10px] h-9 w-3/6 focus:outline-none border-2 border-black rounded-md" type="text" placeholder="Name" />
                 <input onChange={(e) => setEmail(e.target.value)} className="pl-[10px] pr-[10px] h-9 w-3/6 focus:outline-none border-2 border-black rounded-md" type="email" placeholder="Email" />
                 <input onChange={(e) => setPhone(e.target.value)} className="pl-[10px] pr-[10px] h-9 w-3/6 focus:outline-none border-2 border-black rounded-md" type="number" placeholder="Phone Number" />
                 <input onChange={(e) => setPassword(e.target.value)} className="pl-[10px] pr-[10px] h-9 w-3/6 focus:outline-none border-2 border-black rounded-md" type="password" placeholder="Password" />
                 <button className="flex flex-col items-center justify-center cursor-pointer mb-7 w-2/6 bg-black h-9 rounded-md text-white" type="submit">Signup</button>
              </form>
+             <span classNme="text-base">Already have an account? <Link className="underline" href="/login">Login</Link></span>
 
         </div>
     )

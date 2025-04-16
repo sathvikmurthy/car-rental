@@ -16,7 +16,7 @@ export default function CreatePool() {
 
         e.preventDefault();
 
-        Axios.post("https://bd83-223-31-218-223.ngrok-free.app/carpools/create", {
+        Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/carpools/create", {
             creatorId: localStorage.getItem('id'),
             source,
             destination,
@@ -34,8 +34,14 @@ export default function CreatePool() {
         })
     }
 
+    useEffect(() => {
+        if(localStorage.getItem('email') == null) {
+            router.push("/");
+        }
+    }, [])
+
     return (
-        <div>
+        <div className="mt-24">
             <Nav />
             <div>
                 <form onSubmit={createPool} className="flex flex-col items-center w-full gap-7 mt-[50px]">

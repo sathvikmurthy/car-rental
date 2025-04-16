@@ -17,7 +17,7 @@ export default function Pools() {
     }])
 
     const getPools = () => {
-        Axios.get("https://bd83-223-31-218-223.ngrok-free.app/carpools/active", {
+        Axios.get("https://1fb1-223-31-218-223.ngrok-free.app/carpools/active", {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
@@ -29,24 +29,28 @@ export default function Pools() {
     }
 
     useEffect(() => {
+        if(localStorage.getItem('email') == null) {
+            router.push("/");
+        }
         getPools();
+        
     }, [])
 
     const joinPool = (pool_id) => {
-        Axios.post(`https://bd83-223-31-218-223.ngrok-free.app/carpools/${pool_id}/join/${localStorage.getItem('id')}`, {
+        Axios.post(`https://1fb1-223-31-218-223.ngrok-free.app/carpools/${pool_id}/join/${localStorage.getItem('id')}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
         }).then((res) => {
             alert("Pool Joined Successfully!");
-            router.push("/");
+            router.push("/profile");
         }).catch((err) => {
             console.log(err);
         })
     }
 
     return (
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full mt-16">
             <Nav />
             <div className="w-full h-full">
                 <div className="flex flex-row w-full justify-evenly mt-[30px]">
@@ -57,7 +61,7 @@ export default function Pools() {
                 <div className="flex flex-col items-center mt-[40px]">
                     <h3 className="text-black font-semibold text-xl mb-[30px]">Available Pools</h3>
                     {poolData.map((pool, index) => (
-                        <div className="flex flex-row gap-15 border-2 border-black rounded-lg font-medium items-center" key={index}>
+                        <div className="flex flex-row gap-15 border-2 border-black rounded-lg font-medium justify-between items-center w-[60%] mb-[30px]" key={index}>
                             <div className="flex flex-col gap-1 ml-[10px] mt-[10px] mb-[10px]">
                                 <span>Source: {pool.source}</span>
                                 <span>Destination: {pool.destination}</span>

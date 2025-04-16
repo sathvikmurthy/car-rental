@@ -30,7 +30,7 @@ export default function Nav() {
     }
 
     return(
-        <nav className="flex flex-row justify-between items-center bg-black w-full h-16">
+        <nav className="flex flex-row justify-between items-center bg-black w-full h-16 fixed top-0">
             <h1 onClick={() => router.push("/")} className="text-2xl font-bold ml-[30px] text-white">Car Rental</h1>
             {showBtn ? (<div className="flex flex-row gap-5 mr-[30px]">
                 <button onClick={() => router.push('/login')} className="flex font-semibold border-0 flex-col bg-white text-black h-9 items-center justify-center pl-[12px] pr-[12px] rounded-md cursor-pointer">Login</button>

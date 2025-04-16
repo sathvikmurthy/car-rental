@@ -3,6 +3,7 @@ import Axios from "axios";
 import Image from 'next/image'
 import Nav from "../components/Nav";
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function Home() {
 
@@ -25,7 +26,7 @@ export default function Home() {
   const [days, setDays] = useState(0);
 
   const getCars = () => {
-    Axios.get("https://bd83-223-31-218-223.ngrok-free.app/cars/all", {
+    Axios.get("https://1fb1-223-31-218-223.ngrok-free.app/cars/all", {
       headers: {
         'ngrok-skip-browser-warning': 'sandesh'
       }
@@ -60,7 +61,7 @@ export default function Home() {
   const openModal = (car_id) => {
     setShowModal(true)
 
-    Axios.get(`https://bd83-223-31-218-223.ngrok-free.app/cars/${car_id}`, {
+    Axios.get(`https://1fb1-223-31-218-223.ngrok-free.app/cars/${car_id}`, {
       headers: {
         'ngrok-skip-browser-warning': 'sandesh'
       }
@@ -70,7 +71,7 @@ export default function Home() {
   }
 
   const bookCar = (car_id) => {
-    Axios.post("https://bd83-223-31-218-223.ngrok-free.app/rentals/book", {
+    Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/rentals/book", {
       startDate: startDate,
       endDate: endDate,
       carId: car_id,
@@ -87,11 +88,28 @@ export default function Home() {
     })
   }
 
+  const deleteListing = (car_id) => {
+    Axios.delete(`https://1fb1-223-31-218-223.ngrok-free.app/cars/delete/${car_id}`, {
+      headers: {
+        headers: {
+          'ngrok-skip-browser-warning': 'sandesh'
+        }
+      }
+    }).then((res) => {
+      alert('Listing Deleted!')
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
+
   return (
     <div>
       {showModal && (<BookModal />)}
       <Nav />
-      <div className="flex flex-col w-full mt-[50px] items-center gap-7">
+      <div>
+        <span>Login to see listings. <Link className="underline" href="/login">Login</Link> or <Link className="underline" href="/signup">Signup</Link></span>
+      </div>
+      <div className="flex flex-col w-full mt-32 items-center gap-7">
         {cars.map((car, index) => (
           <div key={index} className="w-[60%] border-2 border-black rounded-lg flex flex-row">
             <Image className="flex ml-[5px] mt-[5px] mb-[5px]" src={car.image} width={300} height={300}/>
@@ -100,7 +118,10 @@ export default function Home() {
                 <span className="text-black text-xl font-semibold ">Model: {car.model}</span>
                 <span className="text-black text-lg font-semibold ">Price: ${car.pricePerDay}/day</span>
               </div>
-              <button onClick={() => openModal(car.id)} className="flex flex-col bg-black text-white font-semibold border-0 h-9 items-center justify-center rounded-md cursor-pointer pl-[12px] pr-[12px] w-[120px]">Book</button>
+              <div className="flex flex-row gap-5">
+                <button onClick={() => openModal(car.id)} className="flex flex-col bg-black text-white font-semibold border-0 h-9 items-center justify-center rounded-md cursor-pointer pl-[12px] pr-[12px]">Book</button>
+                {localStorage.getItem('role') == "ADMIN" && (<button onClick={() => {deleteListing(car.id); getCars();}} className="flex flex-col bg-black text-white font-semibold border-0 h-9 items-center justify-center rounded-md cursor-pointer pl-[12px] pr-[12px]">Remove Listing</button>)}
+              </div>
             </div>
           </div>
         ))}
