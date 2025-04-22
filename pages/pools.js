@@ -17,7 +17,7 @@ export default function Pools() {
     }])
 
     const getPools = () => {
-        Axios.get("https://1fb1-223-31-218-223.ngrok-free.app/carpools/active", {
+        Axios.get("https://b400-223-31-218-223.ngrok-free.app/carpools/active", {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
@@ -37,7 +37,7 @@ export default function Pools() {
     }, [])
 
     const joinPool = (pool_id) => {
-        Axios.post(`https://1fb1-223-31-218-223.ngrok-free.app/carpools/${pool_id}/join/${localStorage.getItem('id')}`, {
+        Axios.post(`https://b400-223-31-218-223.ngrok-free.app/carpools/${pool_id}/join/${localStorage.getItem('id')}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }

@@ -16,7 +16,7 @@ export default function CreatePool() {
 
         e.preventDefault();
 
-        Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/carpools/create", {
+        Axios.post("https://b400-223-31-218-223.ngrok-free.app/carpools/create", {
             creatorId: localStorage.getItem('id'),
             source,
             destination,

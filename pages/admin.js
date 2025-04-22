@@ -14,7 +14,7 @@ export default function Admin() {
     const addListing = (e) => {
         e.preventDefault();
 
-        Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/cars/add", {
+        Axios.post("https://b400-223-31-218-223.ngrok-free.app/cars/add", {
             model,
             bookings: [],
             pricePerDay: price,

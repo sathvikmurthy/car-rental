@@ -26,7 +26,7 @@ export default function Signup() {
         if(phone.length != 10) {
 
         } else {
-            Axios.post("https://1fb1-223-31-218-223.ngrok-free.app/users/register", {
+            Axios.post("https://b400-223-31-218-223.ngrok-free.app/users/register", {
                 name,
                 email,
                 phone,

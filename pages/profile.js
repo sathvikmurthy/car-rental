@@ -20,7 +20,7 @@ export default function Profile() {
     }, [])
 
     const getMyBookings = () => {
-        Axios.get(`https://1fb1-223-31-218-223.ngrok-free.app/rentals/${localStorage.getItem('id')}`, {
+        Axios.get(`https://b400-223-31-218-223.ngrok-free.app/rentals/${localStorage.getItem('id')}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
@@ -32,7 +32,7 @@ export default function Profile() {
     }
 
     const getMyPools = () => {
-        Axios.get(`https://1fb1-223-31-218-223.ngrok-free.app/carpools/created/${localStorage.getItem('id')}`, {
+        Axios.get(`https://b400-223-31-218-223.ngrok-free.app/carpools/created/${localStorage.getItem('id')}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
@@ -44,7 +44,7 @@ export default function Profile() {
     }
 
     const getJoinedPools = () => {
-        Axios.get(`https://1fb1-223-31-218-223.ngrok-free.app/carpools/joined/${localStorage.getItem('id')}`, {
+        Axios.get(`https://b400-223-31-218-223.ngrok-free.app/carpools/joined/${localStorage.getItem('id')}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
@@ -56,7 +56,7 @@ export default function Profile() {
     }
 
     const deletePool = (pool_id) => {
-        Axios.delete(`https://1fb1-223-31-218-223.ngrok-free.app/carpools/delete/${pool_id}`, {
+        Axios.delete(`https://b400-223-31-218-223.ngrok-free.app/carpools/delete/${pool_id}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
@@ -68,7 +68,7 @@ export default function Profile() {
     }
 
     const leavePool = (pool_id) => {
-        Axios.post(`https://1fb1-223-31-218-223.ngrok-free.app/carpools/${pool_id}/leave/${localStorage.getItem('id')}`, {
+        Axios.post(`https://b400-223-31-218-223.ngrok-free.app/carpools/${pool_id}/leave/${localStorage.getItem('id')}`, {
             headers: {
                 'ngrok-skip-browser-warning': 'sandesh'
             }
