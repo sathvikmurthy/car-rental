@@ -70,23 +70,39 @@ export default function Home() {
     })
   }
 
+  const overlapDates = (dateRanges, inputStartDate, inputEndDate) => {
+    const inputStart = new Date(inputStartDate);
+    const inputEnd = new Date(inputEndDate);
+
+    return dateRanges.some(({ bookings }) => {
+      const start = new Date(bookings.startDate);
+      const end = new Date(bookings.endDate);
+
+      return inputStart <= end && start <= inputEnd;
+    })
+  }
+
 
   const bookCar = (car_id) => {
-    Axios.post("https://b400-223-31-218-223.ngrok-free.app/rentals/book", {
-      startDate: startDate,
-      endDate: endDate,
-      carId: car_id,
-      userId: localStorage.getItem('id')
-    }, {
-      headers: {
-        'ngrok-skip-browser-warning': 'sandesh'
-      }
-    }).then((res) => {
-      setStartDate("");
-      setEndDate("");
-      alert("Booking Successful!")
-      router.push('/profile')
-    })
+    if(overlapDates(modalData, startDate, endDate) == true) {
+      alert("These dates are already booked. Select different dates and try again.")
+    } else {
+      Axios.post("https://b400-223-31-218-223.ngrok-free.app/rentals/book", {
+        startDate: startDate,
+        endDate: endDate,
+        carId: car_id,
+        userId: localStorage.getItem('id')
+      }, {
+        headers: {
+          'ngrok-skip-browser-warning': 'sandesh'
+        }
+      }).then((res) => {
+        setStartDate("");
+        setEndDate("");
+        alert("Booking Successful!")
+        router.push('/profile')
+      })
+    }
   }
 
   const deleteListing = (car_id) => {
